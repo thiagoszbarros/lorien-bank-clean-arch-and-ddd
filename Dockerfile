@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     gcc \
     make \
+    fswatch \
     && docker-php-ext-configure gd \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
