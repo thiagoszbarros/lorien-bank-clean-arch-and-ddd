@@ -9,7 +9,7 @@ Create an application that allows an internal user that has an  account with a P
 - To send a pix transfer the balance of that internal user account should be greather that zero brazilian reais.
 - To send a pix transfer that internal user account should have at least one pix key configurated.
 - To send a pix transfer the receiver account should have a pix key configurated.
-- The internal user pix key can have only types cpf, brazilian cellphone, email and random.
+- [DONE] The internal user pix key can have only types cpf, brazilian cellphone, email and random.
 - An internal user can have only 1 pix key by type configurated at same time. 
 - Users of other payment institutions can have pix key type cnpj
 - An internal user can send a pix transfer using a pix key of any type to any other type of pix key.
