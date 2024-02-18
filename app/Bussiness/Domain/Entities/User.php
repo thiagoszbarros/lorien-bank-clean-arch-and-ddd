@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Bussiness\Domain\Entities;
 
+use App\Bussiness\Domain\ValueObjects\BirthDate;
 use App\Bussiness\Domain\ValueObjects\Cellphone;
 use App\Bussiness\Domain\ValueObjects\Cpf;
 use App\Bussiness\Domain\ValueObjects\Email;
@@ -13,6 +14,8 @@ final readonly class User
     private string $firstName;
 
     private string $lastName;
+
+    private BirthDate $birthDate;
 
     private Cpf $cpf;
 
@@ -49,6 +52,18 @@ final readonly class User
     public function setLastName(string $lastName): static
     {
         $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getBirthDate(): BirthDate
+    {
+        return $this->birthDate;
+    }
+
+    public function setBirthDate(BirthDate $birthDate): static
+    {
+        $this->birthDate = $birthDate;
 
         return $this;
     }
