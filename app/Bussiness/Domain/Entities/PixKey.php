@@ -14,7 +14,7 @@ final readonly class PixKey
 {
     private PixKeyType $type;
 
-    private Cpf|Email|Cellphone|RandomKey $value;
+    private Cpf|Email|Cellphone|RandomKey $key;
 
     private function __construct()
     {
@@ -25,14 +25,14 @@ final readonly class PixKey
         return new PixKey();
     }
 
-    public function getKey(): string
+    public function getKeyValue(): string
     {
-        return $this->value;
+        return $this->key->getValue();
     }
 
-    public function setKey(Cpf|Email|Cellphone|RandomKey $value): static
+    public function setKey(Cpf|Email|Cellphone|RandomKey $key): static
     {
-        $this->value = $value;
+        $this->key = $key;
 
         return $this;
     }

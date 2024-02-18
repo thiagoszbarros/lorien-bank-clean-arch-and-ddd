@@ -6,26 +6,26 @@ namespace App\Bussiness\Domain\ValueObjects;
 
 final readonly class Cellphone
 {
-    private string $cellphone;
+    private string $value;
 
-    public function __construct(string $cellphone)
+    public function __construct(string $value)
     {
-        if ($this->validate($cellphone) === false) {
+        if ($this->validate($value) === false) {
             throw new \DomainException('Invalid cellphone number.');
         }
 
-        $this->cellphone = $cellphone;
+        $this->value = $value;
     }
 
-    private function validate(string $cellphone): bool
+    private function validate(string $value): bool
     {
-        $cellphone = preg_replace('/[^0-9]/', '', $cellphone);
+        $value = preg_replace('/[^0-9]/', '', $value);
 
-        return strlen($cellphone) !== 11 || ! str_starts_with($cellphone, '9');
+        return strlen($value) !== 11 || ! str_starts_with($value, '9');
     }
 
-    public function __toString(): string
+    public function getValue(): string
     {
-        return $this->cellphone;
+        return $this->value;
     }
 }

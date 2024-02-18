@@ -24,7 +24,7 @@ final readonly class RandomKey
         return "$firstPart-$secondPart-$thirdPart-$fourthPart-$fifthPart";
     }
 
-    public function __toString(): string
+    public function getValue(): string
     {
         return $this->value;
     }

@@ -6,20 +6,20 @@ namespace App\Bussiness\Domain\ValueObjects;
 
 final readonly class Email
 {
-    private string $email;
+    private string $value;
 
     public function __construct(
-        string $email
+        string $value
     ) {
-        if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (! filter_var($value, FILTER_VALIDATE_EMAIL)) {
             throw new \DomainException('Invalid email.');
         }
 
-        $this->email = $email;
+        $this->value = $value;
     }
 
-    public function __toString(): string
+    public function getValue(): string
     {
-        return $this->email;
+        return $this->value;
     }
 }

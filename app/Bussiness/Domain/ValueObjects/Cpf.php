@@ -6,36 +6,36 @@ namespace App\Bussiness\Domain\ValueObjects;
 
 final readonly class Cpf
 {
-    private string $cpf;
+    private string $value;
 
     public function __construct(
-        string $cpf
+        string $value
     ) {
-        if ($this->validate($cpf) === false) {
+        if ($this->validate($value) === false) {
             throw new \DomainException('Invalid cpf.');
         }
 
-        $this->cpf = $cpf;
+        $this->value = $value;
     }
 
-    private function validate($cpf): bool
+    private function validate($value): bool
     {
-        $cpf = preg_replace('/[^0-9]/is', '', $cpf);
+        $value = preg_replace('/[^0-9]/is', '', $value);
 
-        if (strlen($cpf) != 11) {
+        if (strlen($value) != 11) {
             return false;
         }
 
-        if (preg_match('/(\d)\1{10}/', $cpf)) {
+        if (preg_match('/(\d)\1{10}/', $value)) {
             return false;
         }
 
         for ($t = 9; $t < 11; $t++) {
             for ($d = 0, $c = 0; $c < $t; $c++) {
-                $d += $cpf[$c] * (($t + 1) - $c);
+                $d += $value[$c] * (($t + 1) - $c);
             }
             $d = ((10 * $d) % 11) % 10;
-            if ($cpf[$c] != $d) {
+            if ($value[$c] != $d) {
                 return false;
             }
         }
@@ -43,8 +43,8 @@ final readonly class Cpf
         return true;
     }
 
-    public function __toString(): string
+    public function getValue(): string
     {
-        return $this->cpf;
+        return $this->value;
     }
 }
