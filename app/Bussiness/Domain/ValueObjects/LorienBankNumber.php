@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Bussiness\Domain\ValueObjects;
 
-class LorienBankNumber
+final readonly class LorienBankNumber
 {
     private int $value;
 
