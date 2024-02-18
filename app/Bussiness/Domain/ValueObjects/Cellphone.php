@@ -13,17 +13,17 @@ final readonly class Cellphone
         $value = $this->sanitization($value);
 
         if ($this->sizeCheck($value) === false) {
-            throw new \DomainException('Cellphone number with DDD should have 11 digits. ex: 99912345678');               
+            throw new \DomainException('Cellphone number with DDD should have 11 digits. ex: 99912345678');
         }
 
         if ($this->ninthDigitCheck($value) === false) {
             throw new \DomainException('Cellphone number should start with character 9. ex: 912345678');
-        } 
-        
+        }
+
         $this->value = $value;
     }
 
-    private function sanitization(string $value): string 
+    private function sanitization(string $value): string
     {
         return preg_replace('/[^0-9]/', '', $value);
     }
