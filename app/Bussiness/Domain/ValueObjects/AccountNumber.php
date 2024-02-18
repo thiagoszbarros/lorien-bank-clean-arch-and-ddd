@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Bussiness\Domain\ValueObjects;
 
-final class AccountNumber
+final readonly class AccountNumber
 {
     private string $number;
 
