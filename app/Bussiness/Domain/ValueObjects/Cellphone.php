@@ -10,18 +10,32 @@ final readonly class Cellphone
 
     public function __construct(string $value)
     {
-        if ($this->validate($value) === false) {
-            throw new \DomainException('Invalid cellphone number.');
+        $value = $this->sanitization($value);
+
+        if ($this->sizeCheck($value) === false) {
+            throw new \DomainException('Cellphone number with DDD should have 11 digits. ex: 99912345678');               
         }
 
+        if ($this->ninthDigitCheck($value) === false) {
+            throw new \DomainException('Cellphone number should start with character 9. ex: 912345678');
+        } 
+        
         $this->value = $value;
     }
 
-    private function validate(string $value): bool
+    private function sanitization(string $value): string 
     {
-        $value = preg_replace('/[^0-9]/', '', $value);
+        return preg_replace('/[^0-9]/', '', $value);
+    }
 
-        return strlen($value) !== 11 || ! str_starts_with($value, '9');
+    private function sizeCheck(string $value): bool
+    {
+        return strlen($value) !== 11;
+    }
+
+    private function ninthDigitCheck(string $value): bool
+    {
+        return ! str_starts_with(substr($value, -9), '9');
     }
 
     public function getValue(): string
