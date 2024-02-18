@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace App\Bussiness\Domain\Entities;
 
 use App\Bussiness\Domain\ValueObjects\AccountNumber;
+use App\Bussiness\Domain\ValueObjects\LorienBankNumber;
 
 final readonly class CheckingAccount
 {
+    private LorienBankNumber $bankNumber = new LorienBankNumber();
+
     private int $branch;
 
     private AccountNumber $number;
@@ -21,6 +24,11 @@ final readonly class CheckingAccount
     public static function reset(): static
     {
         return new CheckingAccount();
+    }
+
+    public function getBankNumber(): int
+    {
+        return $this->bankNumber->getValue();
     }
 
     public function getBranch(): int
