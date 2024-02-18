@@ -9,7 +9,7 @@ use App\Bussiness\Domain\ValueObjects\LorienBankNumber;
 
 final readonly class CheckingAccount
 {
-    private LorienBankNumber $bankNumber = new LorienBankNumber();
+    private LorienBankNumber $bankNumber;
 
     private int $branch;
 
@@ -19,6 +19,7 @@ final readonly class CheckingAccount
 
     private function __construct()
     {
+        $this->bankNumber = new LorienBankNumber();
     }
 
     public static function reset(): static
