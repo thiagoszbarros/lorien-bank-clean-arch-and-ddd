@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Bussiness\Domain\Entities;
 
 use App\Bussiness\Domain\Enums\PixKeyType;
+use App\Bussiness\Domain\ValueObjects\AccountNumber;
 use App\Bussiness\Domain\ValueObjects\Cellphone;
 use App\Bussiness\Domain\ValueObjects\Cpf;
 use App\Bussiness\Domain\ValueObjects\Email;
@@ -16,6 +17,8 @@ final readonly class PixKey
 
     private Cpf|Email|Cellphone|RandomKey $key;
 
+    private AccountNumber $accountNumber;
+
     private function __construct()
     {
     }
@@ -25,7 +28,7 @@ final readonly class PixKey
         return new PixKey();
     }
 
-    public function getKeyValue(): string
+    public function getKey(): string
     {
         return $this->key->getValue();
     }
@@ -49,6 +52,18 @@ final readonly class PixKey
         }
 
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getAccountNumber(): AccountNumber
+    {
+        return $this->accountNumber;
+    }
+
+    public function setAccountNumber(AccountNumber $accountNumber): static
+    {
+        $this->accountNumber = $accountNumber;
 
         return $this;
     }
