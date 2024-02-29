@@ -3,7 +3,7 @@
 use App\Bussiness\Domain\Entities\PixKey;
 use App\Bussiness\Domain\Enums\PixKeyType;
 
-it('Should throw exception when invalid pixkey type is set', function () {
+it('should throw exception when invalid pixkey type is set', function () {
     PixKey::reset()
         ->setType(PixKeyType::CNPJ);
 })->throws(
