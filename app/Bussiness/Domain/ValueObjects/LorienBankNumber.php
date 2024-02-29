@@ -6,14 +6,14 @@ namespace App\Bussiness\Domain\ValueObjects;
 
 final readonly class LorienBankNumber
 {
-    private int $value;
+    private string $value;
 
     public function __construct()
     {
-        $this->value = 2901;
+        $this->value = '2901';
     }
 
-    public function getValue(): int
+    public function getValue(): string
     {
         return $this->value;
     }
