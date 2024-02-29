@@ -10,8 +10,6 @@ final readonly class Cellphone
 
     public function __construct(string $value)
     {
-        $value = $this->sanitization($value);
-
         if ($this->sizeCheck($value) === false) {
             throw new \DomainException('Cellphone number with DDD should have 11 digits. ex: 99912345678');
         }
@@ -23,19 +21,14 @@ final readonly class Cellphone
         $this->value = $value;
     }
 
-    private function sanitization(string $value): string
-    {
-        return preg_replace('/[^0-9]/', '', $value);
-    }
-
     private function sizeCheck(string $value): bool
     {
-        return strlen($value) !== 11;
+        return strlen($value) === 11;
     }
 
     private function ninthDigitCheck(string $value): bool
     {
-        return ! str_starts_with(substr($value, -9), '9');
+        return str_starts_with(substr($value, -9), '9');
     }
 
     public function getValue(): string
