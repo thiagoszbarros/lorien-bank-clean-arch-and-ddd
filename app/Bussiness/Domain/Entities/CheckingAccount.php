@@ -11,7 +11,7 @@ final readonly class CheckingAccount
 {
     private LorienBankNumber $bankNumber;
 
-    private int $branch;
+    private string $branch;
 
     private AccountNumber $number;
 
@@ -27,17 +27,17 @@ final readonly class CheckingAccount
         return new CheckingAccount();
     }
 
-    public function getBankNumber(): int
+    public function getBankNumber(): string
     {
         return $this->bankNumber->getValue();
     }
 
-    public function getBranch(): int
+    public function getBranch(): string
     {
         return $this->branch;
     }
 
-    public function setBranch(int $branch): static
+    public function setBranch(string $branch): static
     {
         $this->branch = $branch;
 
