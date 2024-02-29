@@ -20,8 +20,6 @@ final readonly class Cpf
 
     private function validate($value): bool
     {
-        $value = preg_replace('/[^0-9]/is', '', $value);
-
         if (strlen($value) != 11) {
             return false;
         }
