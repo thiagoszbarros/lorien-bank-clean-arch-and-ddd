@@ -7,6 +7,7 @@ namespace App\Bussiness\Domain\ValueObjects;
 final readonly class BirthDate
 {
     private const int LEGAL_AGE = 18;
+
     private \DateTimeImmutable $value;
 
     public function __construct(string $value)
