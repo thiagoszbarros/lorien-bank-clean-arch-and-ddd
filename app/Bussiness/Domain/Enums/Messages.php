@@ -10,4 +10,5 @@ enum Messages: string
     case PIX_KEY_SUCCESSESFULLY_REGISTERED = 'Pix Key successfully registered.';
     case FAILED_TO_REGISTER_KEY = 'Failed to register key.';
     case KEY_TYPE_ALREADY_REGISTERED = 'Pix Key with same type already registered for that account number given.';
+    case CHECKING_ACCOUNT_NOT_FOUND = 'Checking account not found.';
 }
