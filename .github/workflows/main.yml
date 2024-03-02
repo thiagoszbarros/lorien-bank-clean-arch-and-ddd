@@ -4,6 +4,23 @@ jobs:
   laravel:
     name: LorienBank (PHP ${{ matrix.php-versions }})
     runs-on: ubuntu-latest
+    env:
+      DB_CONNECTION: pgsql
+      DB_HOST: localhost
+      DB_PASSWORD: password
+      DB_USERNAME: postgres
+      DB_DATABASE: postgres
+      
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: postgres
+        ports:
+          - 5432/tcp
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
     strategy:
       fail-fast: false
       matrix:
@@ -16,7 +33,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
-          extensions: mbstring, dom, fileinfo
+          extensions: mbstring, dom, fileinfo, pgsql
           coverage: xdebug
 
       - name: Get composer cache directory
@@ -41,5 +58,13 @@ jobs:
       - name: Clear Config
         run: php artisan config:clear
 
+      - name: Run Migration
+        run: php artisan migrate -v --seed
+        env:
+          DB_PORT: ${{ job.services.postgres.ports[5432] }}
+          REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
+
       - name: Run tests
         run: php artisan test
+        env:
+          DB_PORT: ${{ job.services.postgres.ports[5432] }}
