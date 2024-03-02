@@ -29,21 +29,38 @@ final readonly class RegisterKey
 
     public function handle(RegisterKeyInput $input): RegisterKeyOutput
     {
-        $pixKeyType = PixKeyType::tryFrom($input->getKeyType());
+        $pixKeyType = PixKeyType::tryFrom(value: $input->getKeyType());
 
         if ($pixKeyType === null || $pixKeyType === PixKeyType::CNPJ) {
-            return new RegisterKeyOutput(false, Messages::INVALID_PIX_KEY_TYPE_GIVEN);
+            return new RegisterKeyOutput(
+                success: false,
+                message: Messages::INVALID_PIX_KEY_TYPE_GIVEN
+            );
         }
 
-        $accountNumber = new AccountNumber(new Cpf($input->getAccountNumber()));
+        $accountNumber = new AccountNumber(
+            cpf: new Cpf(
+                value: $input->getAccountNumber()
+            )
+        );
 
-        $checkingAccount = $this->getCheckingAccountByNumberRepo->get($accountNumber);
+        $checkingAccount = $this
+            ->getCheckingAccountByNumberRepo
+            ->get(accountNumber: $accountNumber);
 
         if ($checkingAccount === null) {
-            return new RegisterKeyOutput(false, Messages::CHECKING_ACCOUNT_NOT_FOUND);
+            return new RegisterKeyOutput(
+                success: false,
+                message: Messages::CHECKING_ACCOUNT_NOT_FOUND
+            );
         }
 
-        $keyTypeAlrearyExists = $this->getPixKeyByCheckingAccountIdAndTypeRepo->get($checkingAccount, $pixKeyType);
+        $keyTypeAlrearyExists = $this
+            ->getPixKeyByCheckingAccountIdAndTypeRepo
+            ->get(
+                checkingAccount: $checkingAccount,
+                type: $pixKeyType
+            );
 
         if ($keyTypeAlrearyExists instanceof PixKey) {
             return new RegisterKeyOutput(
@@ -64,8 +81,16 @@ final readonly class RegisterKey
             ->setType($pixKeyType)
             ->setAccountNumber($accountNumber);
 
-        return $this->registerKeyRepo->register($checkingAccount, $pixKey) === true
-            ? new RegisterKeyOutput(true, Messages::PIX_KEY_SUCCESSESFULLY_REGISTERED)
-            : new RegisterKeyOutput(false, Messages::FAILED_TO_REGISTER_KEY);
+        return $this
+            ->registerKeyRepo
+            ->register($checkingAccount, $pixKey) === true
+            ? new RegisterKeyOutput(
+                success: true,
+                message: Messages::PIX_KEY_SUCCESSESFULLY_REGISTERED
+            )
+            : new RegisterKeyOutput(
+                success: false,
+                message: Messages::FAILED_TO_REGISTER_KEY
+            );
     }
 }
