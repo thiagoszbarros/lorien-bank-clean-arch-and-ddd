@@ -9,6 +9,8 @@ use App\Bussiness\Domain\ValueObjects\LorienBankNumber;
 
 final readonly class CheckingAccount
 {
+    private int $id;
+
     private LorienBankNumber $bankNumber;
 
     private string $branch;
@@ -25,6 +27,18 @@ final readonly class CheckingAccount
     public static function reset(): static
     {
         return new CheckingAccount();
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): static
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getBankNumber(): string
