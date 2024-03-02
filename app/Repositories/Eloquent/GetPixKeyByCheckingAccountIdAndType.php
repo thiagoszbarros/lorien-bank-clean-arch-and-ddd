@@ -11,10 +11,10 @@ use App\Bussiness\Domain\Repositories\IGetPixKeyByCheckingAccountIdAndType;
 
 final readonly class GetPixKeyByCheckingAccountIdAndType implements IGetPixKeyByCheckingAccountIdAndType
 {
-    public function get(CheckingAccount $accountNumber, PixKeyType $type): ?PixKey
+    public function get(CheckingAccount $checkingAccount, PixKeyType $type): ?PixKey
     {
         $pixKey = \App\Models\PixKey::whereCheckingAccountIdAndType(
-            $accountNumber->getId(),
+            $checkingAccount->getId(),
             $type->value
         )->first();
 
