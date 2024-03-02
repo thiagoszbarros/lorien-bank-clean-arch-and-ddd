@@ -9,7 +9,8 @@ use App\Bussiness\Application\Dtos\RegisterKeyOutput;
 use App\Bussiness\Domain\Entities\PixKey;
 use App\Bussiness\Domain\Enums\Messages;
 use App\Bussiness\Domain\Enums\PixKeyType;
-use App\Bussiness\Domain\Repositories\IGetPixKeyByAccountNumberAndType;
+use App\Bussiness\Domain\Repositories\IGetCheckingAccountByNumber;
+use App\Bussiness\Domain\Repositories\IGetPixKeyByCheckingAccountIdAndType;
 use App\Bussiness\Domain\Repositories\IRegisterKey;
 use App\Bussiness\Domain\ValueObjects\AccountNumber;
 use App\Bussiness\Domain\ValueObjects\Cellphone;
@@ -20,7 +21,8 @@ use App\Bussiness\Domain\ValueObjects\RandomKey;
 final readonly class RegisterKey
 {
     public function __construct(
-        private IGetPixKeyByAccountNumberAndType $getPixKeyByAccountNumberAndTypeRepo,
+        private IGetCheckingAccountByNumber $getCheckingAccountByNumberRepo,
+        private IGetPixKeyByCheckingAccountIdAndType $getPixKeyByCheckingAccountIdAndTypeRepo,
         private IRegisterKey $registerKeyRepo,
     ) {
     }
@@ -35,7 +37,13 @@ final readonly class RegisterKey
 
         $accountNumber = new AccountNumber(new Cpf($input->getAccountNumber()));
 
-        $keyTypeAlrearyExists = $this->getPixKeyByAccountNumberAndTypeRepo->get($accountNumber, $pixKeyType);
+        $checkingAccount = $this->getCheckingAccountByNumberRepo->get($accountNumber);
+
+        if ($checkingAccount === null) {
+            return new RegisterKeyOutput(false, Messages::CHECKING_ACCOUNT_NOT_FOUND);
+        }
+
+        $keyTypeAlrearyExists = $this->getPixKeyByCheckingAccountIdAndTypeRepo->get($checkingAccount, $pixKeyType);
 
         if ($keyTypeAlrearyExists instanceof PixKey) {
             return new RegisterKeyOutput(
@@ -56,7 +64,7 @@ final readonly class RegisterKey
             ->setType($pixKeyType)
             ->setAccountNumber($accountNumber);
 
-        return $this->registerKeyRepo->register($pixKey) === true
+        return $this->registerKeyRepo->register($checkingAccount, $pixKey) === true
             ? new RegisterKeyOutput(true, Messages::PIX_KEY_SUCCESSESFULLY_REGISTERED)
             : new RegisterKeyOutput(false, Messages::FAILED_TO_REGISTER_KEY);
     }
