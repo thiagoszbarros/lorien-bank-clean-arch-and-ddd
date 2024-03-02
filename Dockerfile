@@ -39,5 +39,11 @@ WORKDIR /var/www/api
 
 COPY . /var/www/api/
 
+RUN composer install --ignore-platform-reqs
+
+RUN composer dump-autoload
+
+RUN php artisan config:cache
+
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
