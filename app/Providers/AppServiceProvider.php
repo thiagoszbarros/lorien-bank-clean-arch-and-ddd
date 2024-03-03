@@ -31,5 +31,9 @@ class AppServiceProvider extends ServiceProvider
             \App\Bussiness\Domain\Repositories\IGetCheckingAccountByNumber::class,
             \App\Repositories\Eloquent\GetCheckingAccountByNumber::class
         );
+        $this->app->bind(
+            \App\Bussiness\Application\Contracts\IGenerateRandomKey::class,
+            \App\Bussiness\Infra\Adapters\GenerateRandomKey::class
+        );
     }
 }
