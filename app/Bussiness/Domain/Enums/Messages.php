@@ -11,4 +11,5 @@ enum Messages: string
     case FAILED_TO_REGISTER_KEY = 'Failed to register key.';
     case KEY_TYPE_ALREADY_REGISTERED = 'Pix Key with same type already registered for that account number given.';
     case CHECKING_ACCOUNT_NOT_FOUND = 'Checking account not found.';
+    case SOMETHING_WENT_WRONG = 'Something went wrong. Try again later.';
 }
