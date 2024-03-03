@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Bussiness\Application\UseCases;
 
-use App\Bussiness\Application\Dtos\RegisterKeyInput;
-use App\Bussiness\Application\Dtos\RegisterKeyOutput;
+use App\Bussiness\Application\Services\CreatePixKeyByType;
+use App\Bussiness\Application\Services\Dtos\CreatePixKeyByTypeInput;
+use App\Bussiness\Application\UseCases\Dtos\RegisterKeyInput;
+use App\Bussiness\Application\UseCases\Dtos\RegisterKeyOutput;
 use App\Bussiness\Domain\Entities\PixKey;
 use App\Bussiness\Domain\Enums\Messages;
 use App\Bussiness\Domain\Enums\PixKeyType;
@@ -13,16 +15,14 @@ use App\Bussiness\Domain\Repositories\IGetCheckingAccountByNumber;
 use App\Bussiness\Domain\Repositories\IGetPixKeyByCheckingAccountIdAndType;
 use App\Bussiness\Domain\Repositories\IRegisterKey;
 use App\Bussiness\Domain\ValueObjects\AccountNumber;
-use App\Bussiness\Domain\ValueObjects\Cellphone;
 use App\Bussiness\Domain\ValueObjects\Cpf;
-use App\Bussiness\Domain\ValueObjects\Email;
-use App\Bussiness\Domain\ValueObjects\RandomKey;
 
 final readonly class RegisterKey
 {
     public function __construct(
         private IGetCheckingAccountByNumber $getCheckingAccountByNumberRepo,
         private IGetPixKeyByCheckingAccountIdAndType $getPixKeyByCheckingAccountIdAndTypeRepo,
+        private CreatePixKeyByType $createPixKeyByType,
         private IRegisterKey $registerKeyRepo,
     ) {
     }
@@ -69,12 +69,7 @@ final readonly class RegisterKey
             );
         }
 
-        $key = match ($pixKeyType) {
-            PixKeyType::CPF => new Cpf($input->getKey()),
-            PixKeyType::EMAIL => new Email($input->getKey()),
-            PixKeyType::CELLPHONE => new Cellphone($input->getKey()),
-            PixKeyType::RANDOM => new RandomKey(),
-        };
+        $key = $this->createPixKeyByType->handle(new CreatePixKeyByTypeInput($pixKeyType, $input->getKey()));
 
         $pixKey = PixKey::reset()
             ->setKey($key)
@@ -83,12 +78,12 @@ final readonly class RegisterKey
 
         return $this
             ->registerKeyRepo
-            ->register($checkingAccount, $pixKey) === true
-            ? new RegisterKeyOutput(
+            ->register($checkingAccount, $pixKey) === true ?
+            new RegisterKeyOutput(
                 success: true,
                 message: Messages::PIX_KEY_SUCCESSESFULLY_REGISTERED
-            )
-            : new RegisterKeyOutput(
+            ) :
+            new RegisterKeyOutput(
                 success: false,
                 message: Messages::FAILED_TO_REGISTER_KEY
             );
