@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Bussiness\Application\Dtos;
+namespace App\Bussiness\Application\UseCases\Dtos;
 
 use App\Bussiness\Domain\Enums\Messages;
 
