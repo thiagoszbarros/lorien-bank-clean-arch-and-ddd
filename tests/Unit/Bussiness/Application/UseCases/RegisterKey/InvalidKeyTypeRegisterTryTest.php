@@ -1,6 +1,7 @@
 <?php
 
-use App\Bussiness\Application\Dtos\RegisterKeyInput;
+use App\Bussiness\Application\Services\CreatePixKeyByType;
+use App\Bussiness\Application\UseCases\Dtos\RegisterKeyInput;
 use App\Bussiness\Application\UseCases\RegisterKey;
 use App\Bussiness\Domain\Enums\PixKeyType;
 use App\Bussiness\Domain\Repositories\IGetCheckingAccountByNumber;
@@ -12,6 +13,7 @@ it('should return invalid pix key type error message', function (): void {
     $this->useCase = new RegisterKey(
         getCheckingAccountByNumberRepo: Mockery::mock(IGetCheckingAccountByNumber::class),
         getPixKeyByCheckingAccountIdAndTypeRepo: Mockery::mock(IGetPixKeyByCheckingAccountIdAndType::class),
+        createPixKeyByType: Mockery::mock(CreatePixKeyByType::class),
         registerKeyRepo: Mockery::mock(IRegisterKey::class),
     );
 
