@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Bussiness\Domain\Entities;
 
+use App\Bussiness\Domain\Enums\MaritalStatus;
 use App\Bussiness\Domain\ValueObjects\BirthDate;
 use App\Bussiness\Domain\ValueObjects\Cellphone;
 use App\Bussiness\Domain\ValueObjects\Cpf;
@@ -23,7 +24,7 @@ final readonly class User
 
     private Cellphone $cellphone;
 
-    private int $maritalStatus;
+    private MaritalStatus $maritalStatus;
 
     private function __construct()
     {
@@ -106,12 +107,12 @@ final readonly class User
         return $this;
     }
 
-    public function getMaritalStatus(): int
+    public function getMaritalStatus(): MaritalStatus
     {
         return $this->maritalStatus;
     }
 
-    public function setMaritalStatus($maritalStatus): static
+    public function setMaritalStatus(MaritalStatus $maritalStatus): static
     {
         $this->maritalStatus = $maritalStatus;
 
