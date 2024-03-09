@@ -2,7 +2,11 @@
 
 namespace App\Exceptions;
 
+use App\Bussiness\Domain\Enums\Messages;
+use App\Bussiness\Infra\Presenters\Result;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -26,5 +30,28 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function render($request, Throwable $exception): Response
+    {
+        Log::info($exception);
+
+        if (env('APP_ENV') === 'local' || env('APP_ENV') === 'testing') {
+            return $this->error($exception->getMessage());
+        }
+
+        return $this->error(Messages::SOMETHING_WENT_WRONG->value);
+    }
+
+    private function error(string $message): Response
+    {
+        return new Response(
+            content: [
+                'success' => false,
+                'message' => $message,
+                'data' => null
+            ],
+            status: Response::HTTP_INTERNAL_SERVER_ERROR,
+        );
     }
 }
