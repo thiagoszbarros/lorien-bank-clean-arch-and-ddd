@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Bussiness\Domain\ValueObjects;
 
 final readonly class AccessCode {
-    private $accessCode;
+    private string $accessCode;
 
     public function __construct(string $accessCode) {
         if (strlen($accessCode) !== 6) {
