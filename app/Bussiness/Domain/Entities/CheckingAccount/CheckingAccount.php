@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Bussiness\Domain\Entities;
+namespace App\Bussiness\Domain\Entities\CheckingAccount;
 
 use App\Bussiness\Domain\ValueObjects\AccountNumber;
 use App\Bussiness\Domain\ValueObjects\LorienBankNumber;

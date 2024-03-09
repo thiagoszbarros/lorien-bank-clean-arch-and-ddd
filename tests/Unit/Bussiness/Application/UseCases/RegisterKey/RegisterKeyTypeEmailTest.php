@@ -3,13 +3,12 @@
 use App\Bussiness\Application\Services\CreatePixKeyByType;
 use App\Bussiness\Application\UseCases\Dtos\RegisterKeyInput;
 use App\Bussiness\Application\UseCases\RegisterKey;
-use App\Bussiness\Domain\Entities\CheckingAccount;
+use App\Bussiness\Domain\Entities\CheckingAccount\CheckingAccount;
 use App\Bussiness\Domain\Enums\PixKeyType;
 use App\Bussiness\Domain\Repositories\IGetCheckingAccountByNumber;
 use App\Bussiness\Domain\Repositories\IGetPixKeyByCheckingAccountIdAndType;
 use App\Bussiness\Domain\Repositories\IRegisterKey;
 use App\Bussiness\Domain\ValueObjects\Email;
-use Mockery;
 
 it('should registrate pix key type email successfully', function (): void {
     $this->getCheckingAccountByNumberRepo = Mockery::mock(IGetCheckingAccountByNumber::class);

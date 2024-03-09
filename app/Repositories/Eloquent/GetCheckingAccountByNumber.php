@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Eloquent;
 
-use App\Bussiness\Domain\Entities\CheckingAccount;
+use App\Bussiness\Domain\Entities\CheckingAccount\CheckingAccount;
 use App\Bussiness\Domain\Repositories\IGetCheckingAccountByNumber;
 use App\Bussiness\Domain\ValueObjects\AccountNumber;
 
