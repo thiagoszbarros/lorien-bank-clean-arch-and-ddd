@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Bussiness\Domain\Entities\CheckingAccount;
 
+use App\Bussiness\Domain\ValueObjects\AccessCode;
 use App\Bussiness\Domain\ValueObjects\AccountNumber;
 use App\Bussiness\Domain\ValueObjects\LorienBankNumber;
 
@@ -18,6 +19,8 @@ final readonly class CheckingAccount
     private AccountNumber $number;
 
     private int $digit;
+
+    private AccessCode $accessCode;
 
     private function __construct()
     {
@@ -78,6 +81,18 @@ final readonly class CheckingAccount
     public function setDigit(int $digit): static
     {
         $this->digit = $digit;
+
+        return $this;
+    }
+
+    public function getAccessCode(): AccessCode
+    {
+        return $this->accessCode;
+    }
+
+    public function setAccessCode(AccessCode $accessCode): static
+    {
+        $this->accessCode = $accessCode;
 
         return $this;
     }
