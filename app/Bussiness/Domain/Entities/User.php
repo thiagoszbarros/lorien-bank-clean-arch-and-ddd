@@ -23,6 +23,8 @@ final readonly class User
 
     private Cellphone $cellphone;
 
+    private int $maritalStatus;
+
     private function __construct()
     {
     }
@@ -100,6 +102,18 @@ final readonly class User
     public function setCellphone($cellphone): static
     {
         $this->cellphone = $cellphone;
+
+        return $this;
+    }
+
+    public function getMaritalStatus(): int
+    {
+        return $this->maritalStatus;
+    }
+
+    public function setMaritalStatus($maritalStatus): static
+    {
+        $this->maritalStatus = $maritalStatus;
 
         return $this;
     }
