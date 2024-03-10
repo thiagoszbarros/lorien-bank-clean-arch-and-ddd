@@ -48,6 +48,7 @@ class Handler extends ExceptionHandler
         $result = Result::reset()
             ->setSuccess(success: false)
             ->setMessages(messages: $message)
+            ->setData(data: null)
             ->toArray();
 
         return new Response(
