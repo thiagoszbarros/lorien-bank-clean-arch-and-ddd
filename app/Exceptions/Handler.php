@@ -7,6 +7,7 @@ use App\Bussiness\Infra\Presenters\Result;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -34,26 +35,24 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception): Response
     {
-        Log::info($exception);
+        Log::error($exception);
 
-        if (env('APP_ENV') === 'local' || env('APP_ENV') === 'testing') {
-            return $this->error($exception->getMessage());
-        }
+        $status = $exception instanceof ValidationException ?
+            Response::HTTP_BAD_REQUEST :
+            Response::HTTP_INTERNAL_SERVER_ERROR;
 
-        return $this->error(Messages::SOMETHING_WENT_WRONG->value);
-    }
+        $message = env('APP_ENV') === 'prod' && $status === Response::HTTP_INTERNAL_SERVER_ERROR ?
+            Messages::SOMETHING_WENT_WRONG->value :
+            $exception->getMessage();
 
-    private function error(string $message): Response
-    {
         $result = Result::reset()
             ->setSuccess(success: false)
             ->setMessages(messages: $message)
-            ->setData(data: null)
             ->toArray();
 
         return new Response(
             content: $result,
-            status: Response::HTTP_INTERNAL_SERVER_ERROR,
+            status: $status,
         );
     }
 }
