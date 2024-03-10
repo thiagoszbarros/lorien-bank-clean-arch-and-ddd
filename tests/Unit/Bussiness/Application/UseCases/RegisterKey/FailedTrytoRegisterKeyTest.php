@@ -4,7 +4,6 @@ use App\Bussiness\Application\Services\CreatePixKeyByType;
 use App\Bussiness\Application\UseCases\Dtos\RegisterKeyInput;
 use App\Bussiness\Application\UseCases\RegisterKey;
 use App\Bussiness\Domain\Entities\CheckingAccount\CheckingAccount;
-use App\Bussiness\Domain\Enums\Messages;
 use App\Bussiness\Domain\Enums\PixKeyType;
 use App\Bussiness\Domain\Repositories\IGetCheckingAccountByNumber;
 use App\Bussiness\Domain\Repositories\IGetPixKeyByCheckingAccountIdAndType;
