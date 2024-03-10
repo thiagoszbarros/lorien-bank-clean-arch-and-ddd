@@ -69,23 +69,20 @@ final readonly class RegisterKey
             );
         }
 
-        $key = $this->createPixKeyByType->handle(new CreatePixKeyByTypeInput($pixKeyType, $input->getKey()));
+        $key = $this->createPixKeyByType
+            ->handle(new CreatePixKeyByTypeInput($pixKeyType, $input->getKey()));
 
         $pixKey = PixKey::reset()
             ->setKey($key)
             ->setType($pixKeyType)
             ->setAccountNumber($accountNumber);
 
-        return $this
-            ->registerKeyRepo
-            ->register($checkingAccount, $pixKey) === true ?
-            new RegisterKeyOutput(
-                success: true,
-                message: Messages::PIX_KEY_SUCCESSESFULLY_REGISTERED
-            ) :
-            new RegisterKeyOutput(
-                success: false,
-                message: Messages::FAILED_TO_REGISTER_KEY
-            );
+        $this->registerKeyRepo
+            ->register($checkingAccount, $pixKey);
+
+        return new RegisterKeyOutput(
+            success: true,
+            message: Messages::PIX_KEY_SUCCESSESFULLY_REGISTERED
+        );
     }
 }
