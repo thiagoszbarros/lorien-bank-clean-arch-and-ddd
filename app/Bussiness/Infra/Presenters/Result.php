@@ -59,7 +59,7 @@ final readonly class Result
         return $this->data;
     }
 
-    public function setData(mixed $data): static
+    public function setData(mixed $data = null): static
     {
         $this->data = $data;
 
