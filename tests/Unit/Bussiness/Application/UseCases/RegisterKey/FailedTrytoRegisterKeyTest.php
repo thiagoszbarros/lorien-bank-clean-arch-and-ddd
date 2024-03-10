@@ -47,7 +47,7 @@ it('should return failed to register key error message', function (): void {
 
     $this->registerKeyRepo
         ->shouldReceive('register')
-        ->andThrow(new \Exception(Messages::SOMETHING_WENT_WRONG->value));
+        ->andThrow(new \Exception());
 
     $this->useCase->handle($input);
 })->expectException(Exception::class);
