@@ -45,12 +45,14 @@ class Handler extends ExceptionHandler
 
     private function error(string $message): Response
     {
+        $result = Result::reset()
+            ->setSuccess(success: false)
+            ->setMessages(messages: $message)
+            ->setData(data: null)
+            ->toArray();
+
         return new Response(
-            content: [
-                'success' => false,
-                'message' => $message,
-                'data' => null
-            ],
+            content: $result,
             status: Response::HTTP_INTERNAL_SERVER_ERROR,
         );
     }

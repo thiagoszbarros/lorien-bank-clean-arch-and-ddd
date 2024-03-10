@@ -19,7 +19,7 @@ it('should create a pix key type cpf successfully', function () {
 
     $response->assertOk();
     expect($response->original['success'])->toBeTrue();
-    expect($response->original['message'])->toBe('Pix Key successfully registered.');
+    expect($response->original['messages'])->toBe(['Pix Key successfully registered.']);
     expect($response->original['data'])->toBeNull();
 });
 
@@ -37,7 +37,7 @@ it('should create a pix key type email successfully', function () {
 
     $response->assertOk();
     expect($response->original['success'])->toBeTrue();
-    expect($response->original['message'])->toBe('Pix Key successfully registered.');
+    expect($response->original['messages'])->toBe(['Pix Key successfully registered.']);
     expect($response->original['data'])->toBeNull();
 });
 
@@ -55,7 +55,7 @@ it('should create a pix key type cellphone successfully', function () {
 
     $response->assertOk();
     expect($response->original['success'])->toBeTrue();
-    expect($response->original['message'])->toBe('Pix Key successfully registered.');
+    expect($response->original['messages'])->toBe(['Pix Key successfully registered.']);
     expect($response->original['data'])->toBeNull();
 });
 
@@ -73,7 +73,7 @@ it('should create a pix key type random successfully', function () {
 
     $response->assertOk();
     expect($response->original['success'])->toBeTrue();
-    expect($response->original['message'])->toBe('Pix Key successfully registered.');
+    expect($response->original['messages'])->toBe(['Pix Key successfully registered.']);
     expect($response->original['data'])->toBeNull();
 });
 
@@ -91,7 +91,7 @@ it('should return invalid pix key type given message', function () {
 
     $response->assertBadRequest();
     expect($response->original['success'])->toBeFalse();
-    expect($response->original['message'])->toBe('Invalid pix key type given. Accepted types: 1 - CPF, 2 - EMAIL, 3 - CELLPHONE, 4 - RANDOM');
+    expect($response->original['messages'])->toBe(['Invalid pix key type given. Accepted types: 1 - CPF, 2 - EMAIL, 3 - CELLPHONE, 4 - RANDOM']);
     expect($response->original['data'])->toBeNull();
 });
 
@@ -118,7 +118,7 @@ it('should return pix key type already registered message', function () {
 
     $response->assertBadRequest();
     expect($response->original['success'])->toBeFalse();
-    expect($response->original['message'])->toBe('Pix Key with same type already registered for that account number given.');
+    expect($response->original['messages'])->toBe(['Pix Key with same type already registered for that account number given.']);
     expect($response->original['data'])->toBeNull();
 });
 
@@ -134,6 +134,6 @@ it('should return checking account not found message', function () {
 
     $response->assertBadRequest();
     expect($response->original['success'])->toBeFalse();
-    expect($response->original['message'])->toBe('Checking account not found.');
+    expect($response->original['messages'])->toBe(['Checking account not found.']);
     expect($response->original['data'])->toBeNull();
 });
