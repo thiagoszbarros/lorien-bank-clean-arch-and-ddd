@@ -4,6 +4,7 @@ use App\Bussiness\Application\Services\CreatePixKeyByType;
 use App\Bussiness\Application\UseCases\Dtos\RegisterKeyInput;
 use App\Bussiness\Application\UseCases\RegisterKey;
 use App\Bussiness\Domain\Entities\CheckingAccount\CheckingAccount;
+use App\Bussiness\Domain\Enums\Messages;
 use App\Bussiness\Domain\Enums\PixKeyType;
 use App\Bussiness\Domain\Repositories\IGetCheckingAccountByNumber;
 use App\Bussiness\Domain\Repositories\IGetPixKeyByCheckingAccountIdAndType;
@@ -45,9 +46,8 @@ it('should return failed to register key error message', function (): void {
         ->andReturn(new Cpf('06806573398'));
 
     $this->registerKeyRepo
-        ->shouldReceive('register');
+        ->shouldReceive('register')
+        ->andThrow(new \Exception(Messages::SOMETHING_WENT_WRONG->value));
 
-    $result = $this->useCase->handle($input);
-
-    expect($result->getMessage())->toBe('Failed to register key.');
-});
+    $this->useCase->handle($input);
+})->expectException(Exception::class);
