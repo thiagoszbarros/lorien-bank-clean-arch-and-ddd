@@ -100,7 +100,7 @@ final readonly class User
         return $this->cellphone;
     }
 
-    public function setCellphone($cellphone): static
+    public function setCellphone(Cellphone $cellphone): static
     {
         $this->cellphone = $cellphone;
 

@@ -18,7 +18,7 @@ final readonly class Cpf
         $this->value = $value;
     }
 
-    private function validate($value): bool
+    private function validate(string $value): bool
     {
         if (strlen($value) != 11) {
             return false;

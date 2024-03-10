@@ -2,13 +2,14 @@
 
 namespace App\Exceptions;
 
-use App\Bussiness\Domain\Enums\Messages;
-use App\Bussiness\Infra\Presenters\Result;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Throwable;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
+use App\Bussiness\Domain\Enums\Messages;
+use App\Bussiness\Infra\Presenters\Result;
 use Illuminate\Validation\ValidationException;
-use Throwable;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
@@ -33,7 +34,7 @@ class Handler extends ExceptionHandler
         });
     }
 
-    public function render($request, Throwable $exception): Response
+    public function render(Request $request, Throwable $exception): Response
     {
         Log::error($exception);
 
