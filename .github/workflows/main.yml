@@ -68,3 +68,6 @@ jobs:
         run: php artisan test
         env:
           DB_PORT: ${{ job.services.postgres.ports[5432] }}
+      
+      - name: Run type coverage
+        run: php -d memory_limit=2048M ./vendor/bin/pest --type-coverage --min=100
