@@ -13,12 +13,8 @@ class RegisterPixKeyRequest extends Request
         return [
             'keyType' => [
                 'required',
-                Rule::in([
-                    PixKeyType::CPF,
-                    PixKeyType::EMAIL,
-                    PixKeyType::CELLPHONE,
-                    PixKeyType::RANDOM,
-                ]),
+                Rule::enum(PixKeyType::class)
+                    ->except(PixKeyType::CNPJ),
             ],
             'key' => [
                 'present',
@@ -35,7 +31,7 @@ class RegisterPixKeyRequest extends Request
     public function messages(): array
     {
         return [
-            'keyType.in' => Messages::INVALID_PIX_KEY_TYPE_GIVEN->value,
+            'keyType.Illuminate\Validation\Rules\Enum' => Messages::INVALID_PIX_KEY_TYPE_GIVEN->value,
         ];
     }
 }
