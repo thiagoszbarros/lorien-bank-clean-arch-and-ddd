@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Bussiness\Infra\Presenters\Result;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\ValidationException;
 
 class Request extends FormRequest
 {
@@ -14,17 +13,11 @@ class Request extends FormRequest
         return true;
     }
 
-    protected function failedValidation(Validator $validator): Response
+    /**
+     * @throws ValidationException When the form is invalid.
+     */
+    protected function failedValidation(Validator $validator): void
     {
-        $result = Result::reset()
-            ->setSuccess(success: false)
-            ->setMessages(messages: $validator->getMessageBag()->all())
-            ->setData(data: null)
-            ->toArray();
-
-        return new Response(
-            content: $result,
-            status: Response::HTTP_BAD_REQUEST
-        );
+        throw new ValidationException(validator: $validator);
     }
 }
