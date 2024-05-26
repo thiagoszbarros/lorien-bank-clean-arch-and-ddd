@@ -20,4 +20,9 @@ class PersonalInformation extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function maritalStatus(): BelongsTo
+    {
+        return $this->belongsTo(MaritalStatus::class);
+    }
 }
