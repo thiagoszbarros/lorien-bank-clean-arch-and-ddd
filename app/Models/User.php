@@ -50,6 +50,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(PersonalInformation::class);
     }
+
+    public function address(): HasOne
+    {
+        return $this->hasOne(Address::class);
+    }
     
     public function checkingAccount(): HasOne
     {
