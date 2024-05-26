@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Bussiness\Domain\Entities\CheckingAccount;
+namespace App\Bussiness\Domain\Entities;
 
 use App\Bussiness\Domain\ValueObjects\AccessCode;
 use App\Bussiness\Domain\ValueObjects\AccountNumber;
