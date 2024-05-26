@@ -7,7 +7,6 @@ use App\Bussiness\Domain\Enums\PixKeyType;
 use App\Bussiness\Domain\Repositories\IGetCheckingAccountByNumber;
 use App\Bussiness\Domain\Repositories\IGetPixKeyByCheckingAccountIdAndType;
 use App\Bussiness\Domain\Repositories\IRegisterKey;
-use Mockery;
 
 it('should return invalid pix key type error message', function (): void {
     $this->useCase = new RegisterKey(
