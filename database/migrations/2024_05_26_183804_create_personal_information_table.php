@@ -13,11 +13,12 @@ return new class extends Migration
         Schema::create('personal_information', function (Blueprint $table): void {
             $table->id();
             $table->foreignIdFor(User::class);
+            $table->string('cellphone', 13);
             $table->date('birth_date');
             $table->string('mother_full_name');
             $table->foreignIdFor(MaritalStatus::class);
+            $table->boolean('is_pep')->comment('is politicaly exposed person');
             $table->decimal('monthly_income', 9, 2, false)->nullable();
-            $table->boolean('is_politically_exposed_person');
             $table->timestamps();
             $table->softDeletes();
         });
