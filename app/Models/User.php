@@ -46,6 +46,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function personalInformation(): HasOne
+    {
+        return $this->hasOne(PersonalInformation::class);
+    }
+    
     public function checkingAccount(): HasOne
     {
         return $this->hasOne(CheckingAccount::class);
