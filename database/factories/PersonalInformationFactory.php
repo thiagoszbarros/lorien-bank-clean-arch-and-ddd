@@ -17,6 +17,8 @@ class PersonalInformationFactory extends Factory
     {
         return [
             'user_id' => User::whereEmail('test@example.com')->first()->id,
+            'rg' => $this->faker->numerify('###########'),
+            'cnh' => $this->faker->numerify('###########'),
             'cellphone' => '55'. PhoneNumber::areaCode() . PhoneNumber::cellphone(false),
             'birth_date' => (new DateTime())->sub(new DateInterval('P18Y'))->format('Y-m-d'),
             'mother_full_name' => $this->faker->name(),
