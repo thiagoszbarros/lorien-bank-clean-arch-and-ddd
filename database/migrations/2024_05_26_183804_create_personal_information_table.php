@@ -13,6 +13,8 @@ return new class extends Migration
         Schema::create('personal_information', function (Blueprint $table): void {
             $table->id();
             $table->foreignIdFor(User::class)->constrained();
+            $table->string('rg', 11)->nullable();
+            $table->string('cnh', 11)->nullable();
             $table->string('cellphone', 13);
             $table->date('birth_date');
             $table->string('mother_full_name');
