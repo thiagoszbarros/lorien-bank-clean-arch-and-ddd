@@ -12,11 +12,11 @@ return new class extends Migration
     {
         Schema::create('personal_information', function (Blueprint $table): void {
             $table->id();
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(User::class)->constrained();
             $table->string('cellphone', 13);
             $table->date('birth_date');
             $table->string('mother_full_name');
-            $table->foreignIdFor(MaritalStatus::class);
+            $table->foreignIdFor(MaritalStatus::class)->constrained();
             $table->boolean('is_pep')->comment('is politicaly exposed person');
             $table->decimal('monthly_income', 9, 2, false)->nullable();
             $table->timestamps();
