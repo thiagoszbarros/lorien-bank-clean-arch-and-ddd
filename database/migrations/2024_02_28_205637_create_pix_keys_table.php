@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pix_keys', function (Blueprint $table) {
+        Schema::create('pix_keys', function (Blueprint $table): void {
             $table->id();
             $table->foreignIdFor(CheckingAccount::class)->constrained();
             $table->enum('type', [1, 2, 3, 4]);
