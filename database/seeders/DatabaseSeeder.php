@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         (new PersonalInformationSeeder())->run();
+        (new AddressSeeder())->run();
 
         \App\Models\CheckingAccount::factory(1)->create();
     }
