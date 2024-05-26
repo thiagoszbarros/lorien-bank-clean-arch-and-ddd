@@ -24,7 +24,7 @@ class CheckingAccountFactory extends Factory
         return [
             'user_id' => User::whereEmail('test@example.com')->first()->id,
             'bank' => (new LorienBankNumber())->getValue(),
-            'bank_branch' => '0001',
+            'branch' => '0001',
             'number' => $faker->cpf(false),
             'digit' => '0',
         ];

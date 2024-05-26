@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->constrained();
             $table->string('bank');
-            $table->string('bank_branch');
+            $table->string('branch');
             $table->string('number');
             $table->integer('digit');
             $table->timestamps();
