@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Bussiness\Domain\Enums;
 
-enum MaritalStatus: int
+enum MaritalStatus: string
 {
-    case SINGLE = 1;
-    case MARRIED = 2;
-    case DIVORCED = 3;
-    case WIDOWED = 4;
+    case SINGLE = 'single';
+    case MARRIED = 'married';
+    case DIVORCED = 'divorced';
+    case WIDOWED = 'widowed';
 }
